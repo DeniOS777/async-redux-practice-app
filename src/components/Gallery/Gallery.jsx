@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies } from 'redux/movies/moviesOperations';
-import { selectMovies } from 'redux/movies/moviesSelectors';
+import { selectMoviesByGenre } from 'redux/movies/moviesSelectors';
 
 export const Gallery = () => {
   const dispatch = useDispatch();
-  const items = useSelector(selectMovies);
+  const items = useSelector(selectMoviesByGenre);
 
   useEffect(() => {
     dispatch(fetchMovies());

@@ -5,15 +5,17 @@ const initialState = {
   movies: [],
   isLoading: false,
   error: null,
+  genre: 0,
 };
 
 export const moviesSlice = createSlice({
   name: 'movies',
   initialState,
-  // reducers: {
-  //   setGanres: (state, action) => {
-  //   }
-  // },
+  reducers: {
+    setGanres: (state, { payload }) => {
+      state.genre = payload;
+    },
+  },
   extraReducers: builder =>
     builder
       .addCase(fetchMovies.fulfilled, (state, { payload }) => {
@@ -29,3 +31,5 @@ export const moviesSlice = createSlice({
         state.error = payload;
       }),
 });
+
+export const { setGanres } = moviesSlice.actions;
