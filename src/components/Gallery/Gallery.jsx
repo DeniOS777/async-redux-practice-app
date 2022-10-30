@@ -1,22 +1,32 @@
 import { useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchMovies } from 'redux/movies/moviesOperations';
-import { selectMoviesByGenre } from 'redux/movies/moviesSelectors';
+import { useSelector } from 'react-redux';
+import { useLazyGetMoviesQuery } from 'redux/movies/movies-api';
+// import { fetchMovies } from 'redux/movies/moviesOperations';
+import { selectMoviesByGenreApi } from 'redux/movies/moviesSelectors';
 
 export const Gallery = () => {
-  const dispatch = useDispatch();
-  const items = useSelector(selectMoviesByGenre);
+  // const dispatch = useDispatch();
+  // const items = useSelector(selectMoviesByGenre);
 
-  useEffect(() => {
-    dispatch(fetchMovies());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchMovies());
+  // }, [dispatch]);
+
+  const [fetchMovies, {data}] = useLazyGetMoviesQuery()
+const items = data?.results;
+const movies = useSelector((state)=> selectMoviesByGenreApi(state, items))
+  useEffect(()=> {
+    fetchMovies()
+  }, [fetchMovies])
+
+  
 
   return (
     <ul
       style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', width: '100vw' }}
     >
-      {items.map(item => (
+      {movies?.map(item => (
         <Card style={{ width: '18rem' }}>
           <Card.Img
             variant="top"

@@ -9,3 +9,9 @@ export const selectMoviesByGenre = state => {
     ? movies.filter(movie => movie.genre_ids.includes(genre))
     : movies;
 };
+export const selectMoviesByGenreApi = (state, movies) => {
+  const genre = selectGenre(state);
+  return genre
+    ? movies.filter(movie => movie.genre_ids.includes(genre))
+    : movies;
+};
