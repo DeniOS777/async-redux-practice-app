@@ -13,32 +13,39 @@ export const Gallery = () => {
   //   dispatch(fetchMovies());
   // }, [dispatch]);
 
-  const [fetchMovies, {data}] = useLazyGetMoviesQuery()
-const items = data?.results;
-const movies = useSelector((state)=> selectMoviesByGenreApi(state, items))
-  useEffect(()=> {
-    fetchMovies()
-  }, [fetchMovies])
+  const [fetchMovies, { data }] = useLazyGetMoviesQuery();
+  const items = data?.results;
+  const movies = useSelector(state => selectMoviesByGenreApi(state, items));
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
 
-  
-
+  console.log(items);
   return (
     <ul
-      style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', width: '100vw' }}
+      style={{
+        display: 'flex',
+        gap: '20px',
+        flexWrap: 'wrap',
+        width: '100vw',
+        padding: '0',
+      }}
     >
       {movies?.map(item => (
-        <Card style={{ width: '18rem' }}>
+        <Card key={item.id} style={{ width: '18rem' }}>
           <Card.Img
             variant="top"
-            src={`https://image.tmdb.org/t/p/w185${item.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
           />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+          <Card.Body style={{ display: 'flex', flexDirection: 'column' }}>
+            <Card.Title>{item.title || item.original_title}</Card.Title>
+            <Card.Text style={{ flex: '1 0 auto' }}>{item.overview}</Card.Text>
+            <Button
+              style={{ minWidth: '200px', alignSelf: 'center' }}
+              variant="primary"
+            >
+              Popularity {item.vote_average} / {item.vote_count}
+            </Button>
           </Card.Body>
         </Card>
       ))}

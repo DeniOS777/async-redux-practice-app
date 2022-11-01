@@ -89,7 +89,11 @@ export const SelectGenre = () => {
   };
 
   return (
-    <Form.Select aria-label="Default select example" onChange={handleChange}>
+    <Form.Select
+      style={{ marginBottom: '20px' }}
+      aria-label="Default select example"
+      onChange={handleChange}
+    >
       <option value={0}>Show all films</option>
       {genres.map(({ id, name }) => (
         <option key={id} value={id}>
