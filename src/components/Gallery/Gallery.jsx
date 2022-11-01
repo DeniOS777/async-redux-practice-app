@@ -20,11 +20,11 @@ export const Gallery = () => {
     fetchMovies();
   }, [fetchMovies]);
 
-  console.log(items);
   return (
     <ul
       style={{
         display: 'flex',
+        justifyContent: 'center',
         gap: '20px',
         flexWrap: 'wrap',
         width: '100vw',
